@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlışkanlıkPlus - Hayatını Dönüştür</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #14b8a6;
+            /* Modern ve sade bir teal/cyan tonu */
+            --primary-dark: #0f766e;
+            --primary-light: #5eead4;
+            --secondary: #64748b;
+            /* Sakin bir gri tonu */
+            --accent: #f97316;
+            /* Enerjik ama abartısız bir turuncu */
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #0f172a;
+            /* Daha yumuşak, okunaklı bir siyah */
+            --gray: #475569;
+            --light-gray: #f8fafc;
+            /* Çok hafif, temiz bir gri */
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --radius: 12px;
+            --radius-lg: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 4px 14px 0 rgba(20, 184, 166, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px 0 rgba(20, 184, 166, 0.4);
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--light-gray);
+            color: var(--dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-text h1 span {
+            color: var(--primary);
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--gray);
+        }
+
+        .hero-text ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .hero-text ul li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+
+        .hero-text ul li i {
+            color: var(--success);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            font-size: 1.125rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 1.5rem auto 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid #e2e8f0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            color: var(--white);
+            box-shadow: 0 4px 14px 0 rgba(20, 184, 166, 0.3);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* Steps Section */
+        .steps {
+            background: var(--light-gray);
+            padding: 6rem 2rem;
+        }
+
+        .steps-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+
+        .step:hover .step-number {
+            transform: scale(1.1);
+            background: var(--primary-dark);
+        }
+
+        .step h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .step p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .testimonial:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .testimonial p {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .testimonial-author strong {
+            color: var(--dark);
+            font-size: 1.125rem;
+        }
+
+        .testimonial-author span {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: var(--dark);
+            color: var(--white);
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.8;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-light {
+            background: var(--white);
+            color: var(--dark);
+        }
+
+        .btn-light:hover {
+            background: var(--light-gray);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-light);
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: flex-start;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .contact-item:hover .contact-icon {
+            background: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-bottom a {
+            color: var(--primary-light);
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            animation: fadeIn 0.3s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            max-width: 450px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            transform: scale(0.9);
+            animation: scaleIn 0.3s forwards;
+            position: relative;
+        }
+
+        @keyframes scaleIn {
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--dark);
+            transform: rotate(90deg);
+        }
+
+        .modal-content h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--dark);
+            font-size: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .form-buttons .btn {
+            flex: 1;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--gray);
+        }
+
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Alert Styles */
+        .alert {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            max-width: 350px;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            z-index: 1001;
+            animation: slideIn 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .alert.error {
+            background: var(--danger);
+            color: var(--white);
+        }
+
+        .alert.success {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 1rem;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                padding: 2rem 1rem;
+                gap: 2rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.75rem;
+            }
+
+            .cta h2 {
+                font-size: 2rem;
+            }
+
+            .features,
+            .steps,
+            .testimonials {
+                padding: 3rem 1rem;
+            }
+
+            .form-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header id="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <span>🎯</span>
+                <span>AlışkanlıkPlus</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#" class="login-trigger">Giriş Yap</a></li>
+                    <li><a href="#" class="register-trigger btn btn-primary">Kayıt Ol</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Alışkanlıklarınızı <span>Otomatikleştirin</span>, Potansiyelinizi Açığa Çıkarın.</h1>
+                    <p>AlışkanlıkPlus, bilimsel yöntemlerle tasarlanmış, size özel bir alışkanlık koçudur. Sadece takip
+                        etmekle kalmaz, aynı zamanda sizi motive eder ve doğru yolda kalmanızı sağlar.</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Kişiselleştirilmiş akıllı hatırlatıcılar</li>
+                        <li><i class="fas fa-check-circle"></i> Detaylı ilerleme grafikleri ve istatistikler</li>
+                        <li><i class="fas fa-check-circle"></i> Oyunlaştırılmış motivasyon sistemi</li>
+                    </ul>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary register-trigger">
+                            <i class="fas fa-rocket"></i>
+                            Hemen Başla
+                        </a>
+                        <a href="#" class="btn btn-secondary login-trigger">
+                            <i class="fas fa-play-circle"></i>
+                            Demo İzle
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                        alt="Alışkanlık Takibi ve Planlama">
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="section-header">
+                <h2>Özelliklerimizle Sınırları Zorlayın</h2>
+                <p>Sadece bir takip uygulaması değil, yaşam tarzı değiştiren bir platform.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3>Esnek Alışkanlık Yönetimi</h3>
+                    <p>Karmaşık arayüzleri unutun. Alışkanlıklarınızı saniyeler içinde ekleyin, düzenleyin ve
+                        tamamlayın. Minimalist tasarımımız, odaklanmanızı sağlar ve takibi bir alışkanlık haline
+                        getirir.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Detaylı Analiz ve Raporlama</h3>
+                    <p>İlerlemenizi sadece sayılarla değil, anlamlı grafiklerle görün. Hangi günlerde daha başarılı
+                        olduğunuzu, hangi alışkanlıkların zorladığını analiz edin ve stratejinizi buna göre güncelleyin.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Akıllı Hatırlatıcılar</h3>
+                    <p>Asla bir günü atlamayın! Alışkanlıklarınız için özel zamanlarda size hatırlatıcılar gönderin.
+                        Motivasyonunuzu en üst düzeyde tutmak için olumlamalar ve teşvik edici mesajlar alın.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Topluluk ve Meydan Okumalar</h3>
+                    <p>Yolculuğunuzda yalnız değilsiniz. Diğer kullanıcılarla birleşin, ortak hedefler belirleyin ve
+                        birbirinize destek olun. Özel meydan okumalara katılarak kendinizi zorlayın.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Steps Section -->
+        <section class="steps">
+            <div class="section-header">
+                <h2>3 Basit Adımda Başarıya Ulaşın</h2>
+                <p>AlışkanlıkPlus'ın sade ve etkili alışkanlık geliştirme süreci</p>
+            </div>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Hedefini Belirle</h3>
+                    <p>Edinmek istediğiniz yeni bir alışkanlığı veya bırakmak istediğiniz eski bir alışkanlığı kolayca
+                        oluşturun. Sıklığını (günlük, haftalık) ve hedeflerinizi belirleyin.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Günlük Kontrollerini Yap</h3>
+                    <p>Her gün alışkanlıklarınızı tek tıkla işaretleyin. Başarınızı takip edin ve peş peşe gelen
+                        günlerle "zincir"inizi koruyun. Zincir ne kadar uzun, motivasyon o kadar yüksek!</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Başarını İzle ve Paylaş</h3>
+                    <p>İlerlemenizi grafikler ve istatistiklerle görün. Kazandığınız rozetler ve puanlarla
+                        motivasyonunuzu artırın. Başarınızı toplulukla paylaşın ve ilham verin!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials">
+            <div class="section-header">
+                <h2>Kullanıcılarımız Ne Diyor?</h2>
+                <p>Gerçek kullanıcıların hayatını değiştiren başarı hikayeleri</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <p>"Bu alışkanlık uygulaması, hedeflerinizi takip etmenizi ve günlük rutinlerinizi geliştirmenizi sağlıyor. Kullanıcı dostu arayüzü ve motive edici hatırlatmaları sayesinde daha disiplinli olmanıza yardımcı oluyor. Hem kişisel gelişim hem de başarı için harika bir araç!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">FT</div>
+                        <div>
+                            <strong>Fatma Topuz</strong>
+                            <span>Yazılım Geliştirici</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p>"Yıllardır sürekli ertelediğim günlük kitap okuma alışkanlığımı bu uygulama sayesinde oturttum.
+                        Şimdi ayda 2 kitap bitiriyorum ve bu beni inanılmaz mutlu ediyor. Kesinlikle tavsiye ederim!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">NT</div>
+                        <div>
+                            <strong>Neda Topuz</strong>
+                            <span>Pazarlama Uzmanı</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta">
+            <h2>Potansiyelinizi Ortaya Çıkarma Vakti Geldi</h2>
+            <p>Binlerce kullanıcı gibi siz de daha disiplinli ve motive bir hayata başlayın. Ücretsiz kaydolun ve ilk
+                alışkanlığınızı bugün oluşturun.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-light register-trigger">
+                    <i class="fas fa-user-plus"></i>
+                    Ücretsiz Başlayın
+                </a>
+                <a href="#" class="btn btn-secondary login-trigger">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Hesabınıza Giriş Yapın
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>AlışkanlıkPlus</h3>
+                    <p>Osmaniye Korkut Ata Üniversitesi Bilgisayar Mühendisliği öğrencileri tarafından geliştirilen,
+                        modern ve bilimsel yaklaşımla alışkanlık yönetimi platformu.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>İletişim</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <a href="mailto:20227170053@ogr.oku.edu.tr">Batuhan DİNÇ</a><br>
+                            <a href="mailto:20227170017@ogr.oku.edu.tr">Mehmet MİKAIL ÖZTAŞ</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div>
+                            Osmaniye Korkut Ata Üniversitesi<br>
+                            Bilgisayar Mühendisliği
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Hızlı Linkler</h3>
+                    <p><a href="#">Gizlilik Politikası</a></p>
+                    <p><a href="#">Kullanım Koşulları</a></p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Sosyal Medya</h3>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/batuhandınc" target="_blank" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/mehmet-mikail-oztas" target="_blank" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 AlışkanlıkPlus. Tüm hakları saklıdır. |
+                    <a href="https://www.osmaniye.edu.tr" target="_blank">Osmaniye Korkut Ata Üniversitesi</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function () {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Modal functionality
+        const loginTriggers = document.querySelectorAll('.login-trigger');
+        const registerTriggers = document.querySelectorAll('.register-trigger');
+
+        loginTriggers.forEach(trigger => {
+            trigger.addEventListener('click', function (e) {
+                e.preventDefault();
+                showLoginModal();
+            });
+        });
+
+        registerTriggers.forEach(trigger => {
+            trigger.addEventListener('click', function (e) {
+                e.preventDefault();
+                showRegisterModal();
+            });
+        });
+
+        function showLoginModal() {
+            const modal = createModal('Giriş Yap', `
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">E-posta</label>
+                        <input type="email" id="login-email" required placeholder="ornek@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Şifre</label>
+                        <input type="password" id="login-password" required placeholder="••••••••">
+                    </div>
+                    <div class="form-buttons">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Giriş Yap
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">
+                            <i class="fas fa-times"></i>
+                            İptal
+                        </button>
+                    </div>
+                </form>
+                <div class="form-footer">
+                    Hesabınız yok mu? <a href="#" onclick="closeModal(); showRegisterModal();">Kayıt olun</a>
+                </div>
+            `);
+
+            document.getElementById('login-form').addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                const btn = this.querySelector('button[type="submit"]');
+                const originalText = btn.innerHTML;
+
+                try {
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Giriş Yapılıyor...';
+
+                    const response = await fetch('/api/auth/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email, password })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        localStorage.setItem('token', data.data.token);
+                        localStorage.setItem('user', JSON.stringify(data.data.user));
+
+                        closeModal();
+                        showAlert('Giriş başarılı! Yönlendiriliyorsunuz...', 'success');
+
+                        setTimeout(() => {
+                            if (data.data.user.role === 'admin') {
+                                window.location.href = '/admin/';
+                            } else {
+                                window.location.href = '/user/';
+                            }
+                        }, 1000);
+                    } else {
+                        showAlert(data.message || 'Giriş başarısız', 'error');
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    showAlert('Bir hata oluştu. Lütfen tekrar deneyin.', 'error');
+                } finally {
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                }
+            });
+        }
+
+        function showRegisterModal() {
+            const modal = createModal('Kayıt Ol', `
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="register-username">Kullanıcı Adı</label>
+                        <input type="text" id="register-username" required placeholder="Kullanıcı adınız">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">E-posta</label>
+                        <input type="email" id="register-email" required placeholder="ornek@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Şifre</label>
+                        <input type="password" id="register-password" required placeholder="En az 6 karakter">
+                    </div>
+                    <div class="form-buttons">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i>
+                            Kayıt Ol
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">
+                            <i class="fas fa-times"></i>
+                            İptal
+                        </button>
+                    </div>
+                </form>
+                <div class="form-footer">
+                    Zaten hesabınız var mı? <a href="#" onclick="closeModal(); showLoginModal();">Giriş yapın</a>
+                </div>
+            `);
+
+            document.getElementById('register-form').addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const username = document.getElementById('register-username').value;
+                const email = document.getElementById('register-email').value;
+                const password = document.getElementById('register-password').value;
+                const btn = this.querySelector('button[type="submit"]');
+                const originalText = btn.innerHTML;
+
+                if (password.length < 6) {
+                    showAlert('Şifre en az 6 karakter olmalıdır', 'error');
+                    return;
+                }
+
+                try {
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Kayıt Yapılıyor...';
+
+                    const response = await fetch('/api/auth/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ username, email, password })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        localStorage.setItem('token', data.data.token);
+                        localStorage.setItem('user', JSON.stringify(data.data.user));
+
+                        closeModal();
+                        showAlert('Kayıt başarılı! Yönlendiriliyorsunuz...', 'success');
+
+                        setTimeout(() => {
+                            window.location.href = '/user/';
+                        }, 1000);
+                    } else {
+                        showAlert(data.message || 'Kayıt başarısız', 'error');
+                    }
+                } catch (error) {
+                    console.error('Register error:', error);
+                    showAlert('Bir hata oluştu. Lütfen tekrar deneyin.', 'error');
+                } finally {
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                }
+            });
+        }
+
+        function createModal(title, content) {
+            const existingModal = document.querySelector('.modal');
+            if (existingModal) existingModal.remove();
+
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <button class="modal-close" onclick="closeModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <h2>${title}</h2>
+                    ${content}
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) closeModal();
+            });
+
+            return modal;
+        }
+
+        function closeModal() {
+            const modal = document.querySelector('.modal');
+            if (modal) modal.remove();
+        }
+
+        function showAlert(message, type) {
+            const alert = document.createElement('div');
+            alert.className = `alert ${type}`;
+            alert.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                ${message}
+            `;
+
+            document.body.appendChild(alert);
+
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+
+</html>
